@@ -129,4 +129,12 @@ class HeaderLineParser
     public function isIndexed() : bool {
         return !is_null($this->getKey());
     }
+
+    /**
+     * If this line has not key or value
+     * @return bool
+     */
+    public function isEmpty() : bool {
+        return is_null($this->getKey()) && is_null($this->getValue());
+    }
 }

@@ -91,27 +91,6 @@ class FileParser
         return $r;
     }
 
-    static function parse_metric_section($metric)
-    {
-        $tokens = preg_split('/\s*,\s*/', $metric);
-
-        $type = array_shift($tokens);
-        $index = 1;
-        if (!empty($tokens)) {
-            $last = $tokens[count($tokens) - 1];
-            if (is_numeric($last)) {
-                $index = $last;
-                array_pop($tokens);
-            }
-        }
-        return [
-            'type' => $type,
-            'index' => $index,
-            'other' => $tokens
-        ];
-    }
-
-    fun
 
     function retrieve_info_from_parsed_header($parsed_header)
     {
@@ -157,64 +136,5 @@ class FileParser
         return in_array($char, $this->header_chars);
     }
 
-    function parse_header_line($line)
-    {
-        $line = substr($line, 1); //clean initial %
-        $line = trim($line);
-        $tokens = [];
-        if ($this->is_header_char($line[0])) {
-            $line = substr($line, 1);
-            $line = trim($line);
-as
-        if (count($tokens) >= 2) {
-            return ['key' => trim($tokens[0]), 'value' => trim($tokens[1])];
-        } else {
-            return ['value' => trim($tokens[0])];
-        }
-    }
-
-    function read_headers()
-    {
-        while ($line = fgets($this->stream)) {
-            $line = mb_convert_encoding($line, 'UTF-8');
-            if ( is_null($this->header_char) )
-                $this->header_char = $this->retrieveHeaderCharFromLine($line);
-
-
-            if ( $this->isLineHeaderEnd() )
-                break;
-
-            if ($this->is_header_line($line)) {
-                $parsed_header = self::parse_header_line($line);
-                $this->retrieve_info_from_parsed_header($parsed_header);
-            }
-        }
-    }
-
-    static function normalize_date($date_str)
-    {
-        $d = \DateTime::createFromFormat('M d Y H:i:s', $date_str);
-        return $d->format('Y-m-d\TH:i:s');
-    }
-
-    static function str($str, $header_chars = ['%'])
-    {
-        $r = new self();
-        $r->header_chars = $header_chars;
-        $stream = fopen("php://temp", 'w+');
-        fwrite($stream, $str);
-        rewind($stream);
-        $r->set_stream($stream);
-        return $r;
-    }
-
-    static function file($f, $header_chars = ['%'])
-    {
-        $r = new self();
-        $stream = fopen($f, 'r+');
-        $r->header_chars = $header_chars;
-        $r->set_stream($stream);
-        return $r;
-    }
 
 }

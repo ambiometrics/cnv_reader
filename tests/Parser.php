@@ -1,13 +1,13 @@
 <?php
+declare(strict_types=1);
 
 namespace sealines\model\format\cnv;
 
 /**
  * Class ParserTestasd
- * @i
  * @package sealines\model\format\cnv
  */
-class ParserTest {
+class Parser {
 
 function parseDataLineProvider() {
   return [
