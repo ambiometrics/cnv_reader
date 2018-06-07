@@ -3,7 +3,12 @@ declare(strict_types=1);
 
 namespace edwrodrig\cnv_parser;
 
-
+/**
+ * Class HeaderLineParser
+ *
+ * Parses a line in the header
+ * @package edwrodrig\cnv_parser
+ */
 class HeaderLineParser
 {
     private $line;
@@ -75,6 +80,11 @@ class HeaderLineParser
         return strpos($this->line, $pattern) === 0;
     }
 
+
+    /**
+     * Clear the line from header init char and {@see trim surrounding whitespaces}
+     * @return string
+     */
     private function getCleanLine() : string {
         $regex = sprintf('/^%s*/', preg_quote($this->init_char, '/'));
         $line = preg_replace($regex, '', $this->line);
@@ -108,10 +118,20 @@ class HeaderLineParser
         if ( empty($this->value) ) $this->value = null;
     }
 
+    /**
+     * Get the line key
+     *
+     * If the line is a key value type. null otherwise
+     * @return null|string
+     */
     public function getKey() : ?string {
         return $this->key;
     }
 
+    /**
+     * Get the line value
+     * @return null|string
+     */
     public function getValue() : ?string {
         return $this->value;
     }

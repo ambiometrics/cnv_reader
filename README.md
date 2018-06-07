@@ -6,7 +6,7 @@ A php library to parser CNV files generated from CTD devices.
 [![Total Downloads](https://poser.pugx.org/edwrodrig/cnv_parser/downloads)](https://packagist.org/packages/edwrodrig/cnv_parser)
 [![License](https://poser.pugx.org/edwrodrig/cnv_parser/license)](https://packagist.org/packages/edwrodrig/cnv_parser)
 [![Build Status](https://travis-ci.org/edwrodrig/cnv_parser.svg?branch=master)](https://travis-ci.org/edwrodrig/cnv_parser)
-[![codecov.io Code Coverage](https://codecov.io/gh/edwrodrig/cnv_parser/branch/master/graph/badge.svg)](https://codecov.io/github/cnv_parser?branch=master)
+[![codecov.io Code Coverage](https://codecov.io/gh/edwrodrig/cnv_parser/branch/master/graph/badge.svg)](https://codecov.io/github/edwrodrig/cnv_parser?branch=master)
 [![Code Climate](https://codeclimate.com/github/edwrodrig/cnv_parser/badges/gpa.svg)](https://codeclimate.com/github/edwrodrig/cnv_parser)
 
 ## My use cases

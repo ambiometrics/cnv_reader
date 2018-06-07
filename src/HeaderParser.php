@@ -82,8 +82,11 @@ class HeaderParser
      * @param int $index
      * @return MetricInfoParser
      */
-    public function getMetricByColumn(int $index) : MetricInfoParser {
-        return $this->metrics[$index];
+    public function getMetricByColumn(int $index) : ?MetricInfoParser {
+        if ( isset($this->metrics[$index]) )
+            return $this->metrics[$index];
+        else
+            return null;
     }
 
     /**
@@ -94,6 +97,12 @@ class HeaderParser
         return $this->coordinate;
     }
 
+    /**
+     * Get the date of the file.
+     *
+     * Must return the date of the sample
+     * @return DateTime|null
+     */
     public function getDateTime() : ?DateTime {
         return $this->datetime;
     }

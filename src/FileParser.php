@@ -1,6 +1,8 @@
 <?php
 
 namespace edwrodrig\cnv_parser;
+use IteratorAggregate;
+
 /**
  * Class FileParser
  * 
@@ -29,111 +31,69 @@ namespace edwrodrig\cnv_parser;
  * @see http://www.odb.ntu.edu.tw/Thermosalinograph/instrument/SBEDataProcessing.pdf
  * @package edwrodrig\cnv_parser
  */
-class FileParser
+class FileParser implements IteratorAggregate
 {
 
+    /**
+     * @var bool|null|resource
+     */
     public $stream = null;
-    public $sensors = [];
-    public $properties = [];
-    public $info = [];
+
+    /**
+     * @var HeaderParser
+     */
+    public $header;
 
 
+    /**
+     * FileParser constructor.
+     * @param string $filename
+     * @throws exception\InvalidHeaderLineFormatException
+     * @throws exception\InvalidStreamException
+     * @throws exception\OpenFileException
+     */
+    public function __construct(string $filename) {
+        $this->stream = fopen($filename, 'r');
+        if ( $this->stream === FALSE ) {
+            throw new exception\OpenFileException($filename);
+        }
+        $this->header = new HeaderParser($this->stream);
+    }
 
-
-    function __destruct()
+    public function __destruct()
     {
         if (is_null($this->stream)) return;
         fclose($this->stream);
     }
 
-    function find_column_by_name($name)
-    {
-        foreach ($this->sensors as $index => $var) {
-            if ($var['name'] == $name)
-                return $index;
-        }
+    /**
+     * Get the headers of the line
+     * @return HeaderParser
+     */
+    public function getHeaders() : HeaderParser {
+        return $this->header;
     }
 
-    function set_stream($stream)
-    {
-        $this->stream = $stream;
-        $this->sensors = [];
-        $this->properties = [];
-        $this->info = [];
-
-        $this->read_headers();
+    /**
+     * Convert a raw line in a array of columns.
+     *
+     * You can get the column metadata with {@see HeaderParser::getMetricByColummn()}
+     * @see FileParser::getHeaders() to get the header class
+     * @param string $line
+     * @return array
+     */
+    private function parseDataLine(string $line) : array {
+        $line = mb_convert_encoding($line, 'UTF-8');
+        $line = trim($line);
+        $tokens = preg_split('/\s+/', $line);
+        return $tokens;
     }
 
-    function traverse()
-    {
+    public function getIterator() {
         while ($line = fgets($this->stream)) {
-            $line = mb_convert_encoding($line, 'UTF-8');
-            $data = self::parse_data_line($line);
+            $data = $this->parseDataLine($line);
             yield $data;
         }
-    }
-
-    static function parse_data_line($line)
-    {
-        return preg_split('/\s+/', trim($line));
-    }
-
-    static function parse_unit_section($unit)
-    {
-        $tokens = explode(',', $unit);
-        $tokens = array_reverse($tokens);
-
-        $r = [];
-        $r['unit'] = trim($tokens[0]);
-        if (!empty($tokens[1]))
-            $r['detail'] = trim($tokens[1]);
-
-        return $r;
-    }
-
-
-    function retrieve_info_from_parsed_header($parsed_header)
-    {
-        if (!isset($parsed_header['key'])) {
-            $this->info[] = $parsed_header['value'];
-            return;
-        }
-
-        $key = $parsed_header['key'];
-        $value = $parsed_header['value'];
-        if (preg_match('/^name (\d+)$/', $key, $matches)) {
-            $index = $matches[1];
-            if (preg_match('/^([^\:]*):([^\[]*)\[([^\[\]]*)\](.*)$/', $value, $matched_value)) {
-                $this->sensors[$index]['name'] = trim($matched_value[1]);
-
-                $this->sensors[$index]['metric'] = self::parse_metric_section(trim($matched_value[2]));
-
-                if (!empty($matched_value[3]))
-                    $this->sensors[$index]['unit'] = self::parse_unit_section(trim($matched_value[3]));
-                if (!empty($matched_value[4]))
-                    $this->sensors[$index]['metric']['other'][] = $matched_value[4];
-            } else if (preg_match('/^([^\:]*):([^\[]*)$/', $value, $matched_value)) {
-                $this->sensors[$index]['name'] = trim($matched_value[1]);
-
-                $this->sensors[$index]['metric'] = self::parse_metric_section(trim($matched_value[2]));
-            }
-        } else if (preg_match('/^span (\d+)$/', $key, $matches)) {
-            $this->sensors[$matches[1]]['span'] = $value;
-
-        } else {
-            $this->properties[$key] = $value;
-        }
-    }
-
-    function is_header_line($line)
-    {
-        if (strlen($line) <= 0) return false;
-        return $this->is_header_char($line[0]);
-    }
-
-    function is_header_char($char)
-    {
-        return in_array($char, $this->header_chars);
     }
 
 
