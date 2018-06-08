@@ -13,8 +13,8 @@
         "cnv",
         "ctd",
         "parser",
-        "seabird"
-
+        "seabird",
+        "oceanography"
     ],
     "license" : "MIT",
     "minimum-stability" : "stable",
