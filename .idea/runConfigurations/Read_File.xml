@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Read File" type="PhpLocalRunConfigurationType" factoryName="PHP Console" folderName="Examples" path="$PROJECT_DIR$/examples/read_file.php">
+    <method />
+  </configuration>
+</component>

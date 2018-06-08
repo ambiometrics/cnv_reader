@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ParserTest
  */
-class FileReaderTest  extends TestCase
+class CnvReaderTest  extends TestCase
 {
 
     /**

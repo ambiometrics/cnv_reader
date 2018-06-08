@@ -71,7 +71,7 @@ class HeaderReader
 
     /**
      * Get metrics
-     * @return array
+     * @return MetricInfoReader[]
      */
     public function getMetrics() : array {
         return $this->metrics;

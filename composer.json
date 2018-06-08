@@ -12,7 +12,9 @@
     "keywords" : [
         "cnv",
         "ctd",
-        "parser"
+        "parser",
+        "seabird"
+
     ],
     "license" : "MIT",
     "minimum-stability" : "stable",
