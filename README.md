@@ -2,12 +2,12 @@ edwrodrig\cnv_reader
 ========
 A php library to parser CNV files generated from CTD devices.
 
-[![Latest Stable Version](https://poser.pugx.org/edwrodrig/cvn_reader/v/stable)](https://packagist.org/packages/edwrodrig/cvn_reader)
-[![Total Downloads](https://poser.pugx.org/edwrodrig/cvn_reader/downloads)](https://packagist.org/packages/edwrodrig/cvn_reader)
-[![License](https://poser.pugx.org/edwrodrig/cvn_reader/license)](https://packagist.org/packages/edwrodrig/cvn_reader)
-[![Build Status](https://travis-ci.org/edwrodrig/cvn_reader.svg?branch=master)](https://travis-ci.org/edwrodrig/cvn_reader)
-[![codecov.io Code Coverage](https://codecov.io/gh/edwrodrig/cvn_reader/branch/master/graph/badge.svg)](https://codecov.io/github/edwrodrig/cvn_reader?branch=master)
-[![Code Climate](https://codeclimate.com/github/edwrodrig/cvn_reader/badges/gpa.svg)](https://codeclimate.com/github/edwrodrig/cvn_reader)
+[![Latest Stable Version](https://poser.pugx.org/edwrodrig/cnv_reader/v/stable)](https://packagist.org/packages/edwrodrig/cnv_reader)
+[![Total Downloads](https://poser.pugx.org/edwrodrig/cnv_reader/downloads)](https://packagist.org/packages/edwrodrig/cnv_reader)
+[![License](https://poser.pugx.org/edwrodrig/cnv_reader/license)](https://packagist.org/packages/edwrodrig/cnv_reader)
+[![Build Status](https://travis-ci.org/edwrodrig/cnv_reader.svg?branch=master)](https://travis-ci.org/edwrodrig/cnv_reader)
+[![codecov.io Code Coverage](https://codecov.io/gh/edwrodrig/cnv_reader/branch/master/graph/badge.svg)](https://codecov.io/github/edwrodrig/cnv_reader?branch=master)
+[![Code Climate](https://codeclimate.com/github/edwrodrig/cnv_reader/badges/gpa.svg)](https://codeclimate.com/github/edwrodrig/cnv_reader)
 
 ## My use cases
 
