@@ -7,7 +7,7 @@ declare(strict_types=1);
  * Time: 16:55
  */
 
-namespace edwrodrig\cnv_parser\exception;
+namespace edwrodrig\cnv_reader\exception;
 
 
 use Exception;

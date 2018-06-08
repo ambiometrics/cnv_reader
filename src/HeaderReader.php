@@ -7,20 +7,20 @@ declare(strict_types=1);
  * Time: 16:43
  */
 
-namespace edwrodrig\cnv_parser;
+namespace edwrodrig\cnv_reader;
 
 
 use DateTime;
 use Location\Coordinate;
 
-class HeaderParser
+class HeaderReader
 {
     private $indexed_data = [];
 
     private $data = [];
 
     /**
-     * @var MetricInfoParser[]
+     * @var MetricInfoReader[]
      */
     private $metrics = [];
 
@@ -80,9 +80,9 @@ class HeaderParser
     /**
      * Get a metric by column index
      * @param int $index
-     * @return MetricInfoParser
+     * @return MetricInfoReader
      */
-    public function getMetricByColumn(int $index) : ?MetricInfoParser {
+    public function getMetricByColumn(int $index) : ?MetricInfoReader {
         if ( isset($this->metrics[$index]) )
             return $this->metrics[$index];
         else
@@ -122,7 +122,7 @@ class HeaderParser
         $longitude = null;
         do {
             $line = fgets($this->stream);
-            $line_parser = new HeaderLineParser($line);
+            $line_parser = new HeaderLineaReader($line);
 
             if ( $line_parser->isEmpty() ) {
                 continue;
@@ -134,18 +134,18 @@ class HeaderParser
             } else if ( !$line_parser->isIndexed() ) {
                 $this->data[] = $line_parser->getValue();
 
-            } else if ( MetricParser::isMetric($line_parser) ) {
-                $metric_parser = new MetricParser($line_parser);
+            } else if ( MetricReader::isMetric($line_parser) ) {
+                $metric_parser = new MetricReader($line_parser);
                 $this->metrics[$metric_parser->getIndex()] = $metric_parser->getInfo();
 
-            } else if ( CoordinateParser::isLatitude($line_parser) ) {
+            } else if ( CoordinateReader::isLatitude($line_parser) ) {
                 $latitude = $line_parser->getValue();
 
-            } else if ( CoordinateParser::isLongitude($line_parser) ) {
+            } else if ( CoordinateReader::isLongitude($line_parser) ) {
                 $longitude = $line_parser->getValue();
 
-            } else if ( DateTimeParser::isDateTime($line_parser) ) {
-                $this->datetime = (new DateTimeParser($line_parser->getValue()))->getDateTime();
+            } else if ( DateTimeReader::isDateTime($line_parser) ) {
+                $this->datetime = (new DateTimeReader($line_parser->getValue()))->getDateTime();
 
             } else {
                 $this->indexed_data[$line_parser->getKey()] = $line_parser->getValue();
@@ -154,7 +154,7 @@ class HeaderParser
         } while ( true );
 
         if ( !is_null($latitude) && !is_null($longitude) ) {
-            $this->coordinate = (new CoordinateParser($latitude, $longitude))->getCoordinate();
+            $this->coordinate = (new CoordinateReader($latitude, $longitude))->getCoordinate();
         }
 
 

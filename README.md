@@ -1,13 +1,13 @@
-edwrodrig\cnv_parser
+edwrodrig\cnv_reader
 ========
 A php library to parser CNV files generated from CTD devices.
 
-[![Latest Stable Version](https://poser.pugx.org/edwrodrig/cnv_parser/v/stable)](https://packagist.org/packages/edwrodrig/cnv_parser)
-[![Total Downloads](https://poser.pugx.org/edwrodrig/cnv_parser/downloads)](https://packagist.org/packages/edwrodrig/cnv_parser)
-[![License](https://poser.pugx.org/edwrodrig/cnv_parser/license)](https://packagist.org/packages/edwrodrig/cnv_parser)
-[![Build Status](https://travis-ci.org/edwrodrig/cnv_parser.svg?branch=master)](https://travis-ci.org/edwrodrig/cnv_parser)
-[![codecov.io Code Coverage](https://codecov.io/gh/edwrodrig/cnv_parser/branch/master/graph/badge.svg)](https://codecov.io/github/edwrodrig/cnv_parser?branch=master)
-[![Code Climate](https://codeclimate.com/github/edwrodrig/cnv_parser/badges/gpa.svg)](https://codeclimate.com/github/edwrodrig/cnv_parser)
+[![Latest Stable Version](https://poser.pugx.org/edwrodrig/cvn_reader/v/stable)](https://packagist.org/packages/edwrodrig/cvn_reader)
+[![Total Downloads](https://poser.pugx.org/edwrodrig/cvn_reader/downloads)](https://packagist.org/packages/edwrodrig/cvn_reader)
+[![License](https://poser.pugx.org/edwrodrig/cvn_reader/license)](https://packagist.org/packages/edwrodrig/cvn_reader)
+[![Build Status](https://travis-ci.org/edwrodrig/cvn_reader.svg?branch=master)](https://travis-ci.org/edwrodrig/cvn_reader)
+[![codecov.io Code Coverage](https://codecov.io/gh/edwrodrig/cvn_reader/branch/master/graph/badge.svg)](https://codecov.io/github/edwrodrig/cvn_reader?branch=master)
+[![Code Climate](https://codeclimate.com/github/edwrodrig/cvn_reader/badges/gpa.svg)](https://codeclimate.com/github/edwrodrig/cvn_reader)
 
 ## My use cases
 
@@ -21,7 +21,7 @@ so it should pop up nicely if you're using IDEs like [PhpStorm](https://www.jetb
 
 ## Composer
 ```
-composer require edwrodrig/cnv_parser
+composer require edwrodrig/cnv_reader
 ```
 
 ## Testing

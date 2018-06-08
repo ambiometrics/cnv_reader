@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\cnv_parser;
-use edwrodrig\cnv_parser\FileParser;
+namespace test\edwrodrig\cnv_reader;
+use edwrodrig\cnv_reader\CnvReader;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ParserTest
  */
-class FileParserTest  extends TestCase
+class FileReaderTest  extends TestCase
 {
 
     /**
@@ -27,9 +27,9 @@ class FileParserTest  extends TestCase
      * [["7753", "2.000", "13.9517", "13.9508", "4.245499", "4.029069", "5.1882", "5.1698", "1.7389", "1.3470e+02", "35.4565", "33.5105", "26.5455", "25.0464", "0.0000e+00"],"       7753      2.000    13.9517    13.9508   4.245499   4.029069     5.1882     5.1698     1.7389 1.3470e+02    35.4565    33.5105    26.5455    25.0464 0.0000e+00"]
      * @param array $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
-     * @throws \edwrodrig\cnv_parser\exception\OpenFileException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\OpenFileException
      */
     function testParseDataLine(array $expected, string $line)
     {
@@ -48,7 +48,7 @@ class FileParserTest  extends TestCase
 EOF
         . $line
         );
-        $p = new FileParser($filename);
+        $p = new CnvReader($filename);
         $data = iterator_to_array($p, false);
         $this->assertEquals([$expected], $data);
     }
@@ -77,7 +77,7 @@ EOF
         );
 
 
-        $p = new FileParser($filename);
+        $p = new CnvReader($filename);
         $data = iterator_to_array($p, false);
         $this->assertEquals(7753, $data[0][0]);
         $this->assertEquals(33.8869, $data[6][10]);

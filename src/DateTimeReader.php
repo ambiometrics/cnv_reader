@@ -7,12 +7,12 @@ declare(strict_types=1);
  * Time: 16:20
  */
 
-namespace edwrodrig\cnv_parser;
+namespace edwrodrig\cnv_reader;
 
 
 use DateTime;
 
-class DateTimeParser
+class DateTimeReader
 {
     /**
      * @var DateTime
@@ -27,7 +27,7 @@ class DateTimeParser
         return $this->datetime;
     }
 
-    public static function isDateTime(HeaderLineParser $header) : bool {
+    public static function isDateTime(HeaderLineaReader $header) : bool {
         if ( !$header->isIndexed() ) return false;
 
         $keys = [

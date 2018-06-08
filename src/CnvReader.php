@@ -1,6 +1,6 @@
 <?php
 
-namespace edwrodrig\cnv_parser;
+namespace edwrodrig\cnv_reader;
 use IteratorAggregate;
 
 /**
@@ -29,9 +29,9 @@ use IteratorAggregate;
  * scans as bad in Loop Edit
  *
  * @see http://www.odb.ntu.edu.tw/Thermosalinograph/instrument/SBEDataProcessing.pdf
- * @package edwrodrig\cnv_parser
+ * @package edwrodrig\cnv_reader
  */
-class FileParser implements IteratorAggregate
+class CnvReader implements IteratorAggregate
 {
 
     /**
@@ -40,7 +40,7 @@ class FileParser implements IteratorAggregate
     public $stream = null;
 
     /**
-     * @var HeaderParser
+     * @var HeaderReader
      */
     public $header;
 
@@ -57,7 +57,7 @@ class FileParser implements IteratorAggregate
         if ( $this->stream === FALSE ) {
             throw new exception\OpenFileException($filename);
         }
-        $this->header = new HeaderParser($this->stream);
+        $this->header = new HeaderReader($this->stream);
     }
 
     public function __destruct()
@@ -68,9 +68,9 @@ class FileParser implements IteratorAggregate
 
     /**
      * Get the headers of the line
-     * @return HeaderParser
+     * @return HeaderReader
      */
-    public function getHeaders() : HeaderParser {
+    public function getHeaders() : HeaderReader {
         return $this->header;
     }
 
@@ -78,7 +78,7 @@ class FileParser implements IteratorAggregate
      * Convert a raw line in a array of columns.
      *
      * You can get the column metadata with {@see HeaderParser::getMetricByColummn()}
-     * @see FileParser::getHeaders() to get the header class
+     * @see CnvReader::getHeaders() to get the header class
      * @param string $line
      * @return array
      */

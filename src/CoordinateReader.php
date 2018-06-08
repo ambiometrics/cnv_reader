@@ -7,13 +7,13 @@ declare(strict_types=1);
  * Time: 15:05
  */
 
-namespace edwrodrig\cnv_parser;
+namespace edwrodrig\cnv_reader;
 
 
 use Location\Coordinate;
 use Location\Factory\CoordinateFactory;
 
-class CoordinateParser
+class CoordinateReader
 {
     /**
      * @var Coordinate
@@ -28,7 +28,7 @@ class CoordinateParser
         return $this->coordinate;
     }
 
-    public static function isLatitude(HeaderLineParser $header) : bool {
+    public static function isLatitude(HeaderLineaReader $header) : bool {
         if ( !$header->isIndexed() ) return false;
 
         if ( strpos($header->getKey(), 'NMEA Latitude') === 0 )
@@ -36,7 +36,7 @@ class CoordinateParser
         else return false;
     }
 
-    public static function isLongitude(HeaderLineParser $header) : bool {
+    public static function isLongitude(HeaderLineaReader $header) : bool {
         if ( !$header->isIndexed() ) return false;
 
         if ( strpos($header->getKey(), 'NMEA Longitude') === 0 )

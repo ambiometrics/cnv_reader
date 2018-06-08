@@ -7,12 +7,12 @@ declare(strict_types=1);
  * Time: 15:51
  */
 
-namespace test\edwrodrig\cnv_parser;
+namespace test\edwrodrig\cnv_reader;
 
-use edwrodrig\cnv_parser\MetricInfoParser;
+use edwrodrig\cnv_reader\MetricInfoReader;
 use PHPUnit\Framework\TestCase;
 
-class MetricInfoParserTest extends TestCase
+class MetricInfoReaderTest extends TestCase
 {
     /**
      * @testWith    ["scan", null, "scan: Scan Count"]
@@ -26,7 +26,7 @@ class MetricInfoParserTest extends TestCase
      * @param string $line
      */
     public function testNameUnit(string $expectedName, ?string $expectedUnit, string $line) {
-        $metric = new MetricInfoParser($line);
+        $metric = new MetricInfoReader($line);
         $this->assertEquals($expectedName, $metric->getName());
         $this->assertEquals($expectedUnit, $metric->getUnit());
     }
@@ -43,7 +43,7 @@ class MetricInfoParserTest extends TestCase
      * @param string $line
      */
     public function testTypeOther(string $expectedType, array $expectedOther, string $line) {
-        $metric = new MetricInfoParser($line);
+        $metric = new MetricInfoReader($line);
         $this->assertEquals($expectedType, $metric->getType());
         $this->assertEquals($expectedOther, $metric->getOther());
     }

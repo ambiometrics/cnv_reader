@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\cnv_parser;
+namespace edwrodrig\cnv_reader;
 
 /**
  * Class HeaderLineParser
  *
  * Parses a line in the header
- * @package edwrodrig\cnv_parser
+ * @package edwrodrig\cnv_reader
  */
-class HeaderLineParser
+class HeaderLineaReader
 {
     private $line;
 
@@ -72,14 +72,13 @@ class HeaderLineParser
      * Check if a line is the end of a header.
      *
      * The pattern is something like *END* or %END%
-     * @uses FileParser::init_char
+     * @uses CnvReader::init_char
      * @return bool
      */
     public function isEnd() : bool {
         $pattern = sprintf('%sEND%s', $this->init_char, $this->init_char);
         return strpos($this->line, $pattern) === 0;
     }
-
 
     /**
      * Clear the line from header init char and {@see trim surrounding whitespaces}

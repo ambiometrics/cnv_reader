@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\cnv_parser;
+namespace edwrodrig\cnv_reader;
 
 
-class MetricInfoParser
+class MetricInfoReader
 {
     /**
      * @var string

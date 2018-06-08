@@ -7,14 +7,14 @@ declare(strict_types=1);
  * Time: 14:29
  */
 
-namespace test\edwrodrig\cnv_parser;
+namespace test\edwrodrig\cnv_reader;
 
-use edwrodrig\cnv_parser\HeaderParser;
+use edwrodrig\cnv_reader\HeaderReader;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 
-class HeaderParserTest extends TestCase
+class HeaderReaderTest extends TestCase
 {
     /**
      * @var vfsStreamDirectory
@@ -26,8 +26,8 @@ class HeaderParserTest extends TestCase
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testEmptyHeader() {
 
@@ -40,15 +40,15 @@ EOF
 );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals([], $parser->getData());
 
         fclose($f);
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderDataOnly() {
 
@@ -63,15 +63,15 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals(['Edwin', 'Rodríguez', 'León'], $parser->getData());
 
         fclose($f);
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderIndexedData() {
 
@@ -86,15 +86,15 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals(['name' => 'Edwin', 'surname' => 'Rodríguez', 'surname2' => 'León'], $parser->getIndexedData());
 
         fclose($f);
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderMetricData() {
         $filename =  $this->root->url() . '/test';
@@ -108,7 +108,7 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals(['surname' => 'Rodríguez', 'surname2' => 'León'], $parser->getIndexedData());
         $this->assertEquals('Edwin', $parser->getMetricByColumn(1)->getName());
 
@@ -116,8 +116,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderCoordinate() {
         $filename =  $this->root->url() . '/test';
@@ -130,7 +130,7 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals([], $parser->getIndexedData());
         $this->assertEquals([], $parser->getData());
         $this->assertEquals(20.06, $parser->getCoordinate()->getLat());
@@ -140,8 +140,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderCoordinateNullLat() {
         $filename =  $this->root->url() . '/test';
@@ -153,7 +153,7 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals([], $parser->getIndexedData());
         $this->assertEquals([], $parser->getData());
         $this->assertNull($parser->getCoordinate());
@@ -162,8 +162,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderCoordinateNullLng() {
         $filename =  $this->root->url() . '/test';
@@ -175,7 +175,7 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals([], $parser->getIndexedData());
         $this->assertEquals([], $parser->getData());
         $this->assertNull($parser->getCoordinate());
@@ -184,8 +184,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderDateTime() {
         $filename =  $this->root->url() . '/test';
@@ -197,7 +197,7 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals([], $parser->getIndexedData());
         $this->assertEquals([], $parser->getData());
         $this->assertEquals('2015-11-27 17:55:23', $parser->getDateTime()->format('Y-m-d H:i:s'));
@@ -206,8 +206,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_parser\exception\InvalidStreamException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
      */
     public function testHeaderDateTimeNull() {
         $filename =  $this->root->url() . '/test';
@@ -218,7 +218,7 @@ EOF
         );
         $f = fopen($filename, 'r');
 
-        $parser = new HeaderParser($f);
+        $parser = new HeaderReader($f);
         $this->assertEquals([], $parser->getIndexedData());
         $this->assertEquals([], $parser->getData());
         $this->assertNull($parser->getDateTime());

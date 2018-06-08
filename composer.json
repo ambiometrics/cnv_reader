@@ -1,5 +1,5 @@
 {
-    "name": "edwrodrig/cnv_parser",
+    "name": "edwrodrig/cnv_reader",
     "description": "Library to parser CTD converted data files",
     "authors": [
         {
@@ -26,12 +26,12 @@
     },
     "autoload" : {
         "psr-4" : {
-            "edwrodrig\\cnv_parser\\" : "src/"
+            "edwrodrig\\cnv_reader\\" : "src/"
         }
     },
     "autoload-dev" : {
         "psr-4" : {
-            "test\\edwrodrig\\cnv_parser\\" : "tests/"
+            "test\\edwrodrig\\cnv_reader\\" : "tests/"
         }
     },
     "archive": {

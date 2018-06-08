@@ -1,23 +1,23 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\cnv_parser;
+namespace test\edwrodrig\cnv_reader;
 
-use edwrodrig\cnv_parser\HeaderLineParser;
-use edwrodrig\cnv_parser\MetricParser;
+use edwrodrig\cnv_reader\HeaderLineaReader;
+use edwrodrig\cnv_reader\MetricReader;
 use PHPUnit\Framework\TestCase;
 
-class HeaderLineParserTest extends TestCase
+class HeaderLineReaderTest extends TestCase
 {
     /**
      * @testWith ["*", "* hola"]
      *          ["#", "# hola"]
      * @param string $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testInitChar(string $expected, string $line) {
-        $header = new HeaderLineParser($line);
+        $header = new HeaderLineaReader($line);
         $this->assertEquals($expected, $header->getInitChar());
     }
 
@@ -27,10 +27,10 @@ class HeaderLineParserTest extends TestCase
      *           [false, "%end%"]
      * @param bool $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testIsEnd(bool $expected, string $line) {
-        $header = new HeaderLineParser($line);
+        $header = new HeaderLineaReader($line);
         $this->assertEquals($expected, $header->isEnd());
     }
 
@@ -46,10 +46,10 @@ class HeaderLineParserTest extends TestCase
      * @param null|string $expectedKey
      * @param null|string $expectedValue
      * @param string $line
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testKeyValue(?string $expectedKey, ?string $expectedValue, string $line) {
-        $header = new HeaderLineParser($line);
+        $header = new HeaderLineaReader($line);
         $this->assertEquals($expectedKey, $header->getKey());
         $this->assertEquals($expectedValue, $header->getValue());
     }
@@ -62,11 +62,11 @@ class HeaderLineParserTest extends TestCase
      *              ["# name 26 = D2-D1: Density Difference, 2 - 1 [sigma-theta, kg/m^3]"]
      *              ["# name 23 = sbeox1ML/L: Oxygen, SBE 43, 2 [ml/l], WS = 2"]
      * @param string $line
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testMetric(string $line) {
-        $header = new HeaderLineParser($line);
-        $this->assertTrue(MetricParser::isMetric($header));
+        $header = new HeaderLineaReader($line);
+        $this->assertTrue(MetricReader::isMetric($header));
 
     }
 }

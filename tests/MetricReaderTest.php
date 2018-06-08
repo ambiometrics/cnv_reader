@@ -7,13 +7,13 @@ declare(strict_types=1);
  * Time: 17:47
  */
 
-namespace test\edwrodrig\cnv_parser;
+namespace test\edwrodrig\cnv_reader;
 
-use edwrodrig\cnv_parser\HeaderLineParser;
-use edwrodrig\cnv_parser\MetricParser;
+use edwrodrig\cnv_reader\HeaderLineaReader;
+use edwrodrig\cnv_reader\MetricReader;
 use PHPUnit\Framework\TestCase;
 
-class MetricParserTest extends TestCase
+class MetricReaderTest extends TestCase
 {
 
     /**
@@ -23,11 +23,11 @@ class MetricParserTest extends TestCase
      *              [false, "# hola"]
      * @param bool $expected
      * @param string $header_line
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testIsMetric(bool $expected, string $header_line) {
-        $header_line_parser = new HeaderLineParser($header_line);
-        $this->assertEquals($expected, MetricParser::isMetric($header_line_parser));
+        $header_line_parser = new HeaderLineaReader($header_line);
+        $this->assertEquals($expected, MetricReader::isMetric($header_line_parser));
     }
 
     /**
@@ -38,12 +38,12 @@ class MetricParserTest extends TestCase
      * @param int $expectedIndex
      * @param string $expectedName
      * @param string $header_line
-     * @throws \edwrodrig\cnv_parser\exception\InvalidHeaderLineFormatException
+     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testGetIndex(int $expectedIndex, string $expectedName, string $header_line) {
-        $header_line_parser = new HeaderLineParser($header_line);
-        $this->assertTrue( MetricParser::isMetric($header_line_parser));
-        $metric_parser = new MetricParser($header_line_parser);
+        $header_line_parser = new HeaderLineaReader($header_line);
+        $this->assertTrue( MetricReader::isMetric($header_line_parser));
+        $metric_parser = new MetricReader($header_line_parser);
         $this->assertEquals($expectedIndex, $metric_parser->getIndex());
         $this->assertEquals($expectedName, $metric_parser->getInfo()->getName());
     }
