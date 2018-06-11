@@ -28,7 +28,7 @@ class CoordinateReader
         return $this->coordinate;
     }
 
-    public static function isLatitude(HeaderLineaReader $header) : bool {
+    public static function isLatitude(HeaderLineReader $header) : bool {
         if ( !$header->isIndexed() ) return false;
 
         if ( strpos($header->getKey(), 'NMEA Latitude') === 0 )
@@ -36,7 +36,7 @@ class CoordinateReader
         else return false;
     }
 
-    public static function isLongitude(HeaderLineaReader $header) : bool {
+    public static function isLongitude(HeaderLineReader $header) : bool {
         if ( !$header->isIndexed() ) return false;
 
         if ( strpos($header->getKey(), 'NMEA Longitude') === 0 )

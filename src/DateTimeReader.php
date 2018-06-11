@@ -27,7 +27,7 @@ class DateTimeReader
         return $this->datetime;
     }
 
-    public static function isDateTime(HeaderLineaReader $header) : bool {
+    public static function isDateTime(HeaderLineReader $header) : bool {
         if ( !$header->isIndexed() ) return false;
 
         $keys = [

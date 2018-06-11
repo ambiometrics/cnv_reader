@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\cnv_reader;
 
-use edwrodrig\cnv_reader\HeaderLineaReader;
+use edwrodrig\cnv_reader\HeaderLineReader;
 use edwrodrig\cnv_reader\MetricReader;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +17,7 @@ class HeaderLineReaderTest extends TestCase
      * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testInitChar(string $expected, string $line) {
-        $header = new HeaderLineaReader($line);
+        $header = new HeaderLineReader($line);
         $this->assertEquals($expected, $header->getInitChar());
     }
 
@@ -30,7 +30,7 @@ class HeaderLineReaderTest extends TestCase
      * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testIsEnd(bool $expected, string $line) {
-        $header = new HeaderLineaReader($line);
+        $header = new HeaderLineReader($line);
         $this->assertEquals($expected, $header->isEnd());
     }
 
@@ -49,7 +49,7 @@ class HeaderLineReaderTest extends TestCase
      * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testKeyValue(?string $expectedKey, ?string $expectedValue, string $line) {
-        $header = new HeaderLineaReader($line);
+        $header = new HeaderLineReader($line);
         $this->assertEquals($expectedKey, $header->getKey());
         $this->assertEquals($expectedValue, $header->getValue());
     }
@@ -65,7 +65,7 @@ class HeaderLineReaderTest extends TestCase
      * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testMetric(string $line) {
-        $header = new HeaderLineaReader($line);
+        $header = new HeaderLineReader($line);
         $this->assertTrue(MetricReader::isMetric($header));
 
     }

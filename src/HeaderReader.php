@@ -122,7 +122,7 @@ class HeaderReader
         $longitude = null;
         do {
             $line = fgets($this->stream);
-            $line_parser = new HeaderLineaReader($line);
+            $line_parser = new HeaderLineReader($line);
 
             if ( $line_parser->isEmpty() ) {
                 continue;

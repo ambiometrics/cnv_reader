@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace test\edwrodrig\cnv_reader;
 
 use edwrodrig\cnv_reader\CoordinateReader;
-use edwrodrig\cnv_reader\HeaderLineaReader;
+use edwrodrig\cnv_reader\HeaderLineReader;
 use PHPUnit\Framework\TestCase;
 
 class CoordinateReaderTest extends TestCase
@@ -23,7 +23,7 @@ class CoordinateReaderTest extends TestCase
      * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testIsLatitude(bool $expected, string $line) {
-        $line = new HeaderLineaReader($line);
+        $line = new HeaderLineReader($line);
         $this->assertEquals($expected, CoordinateReader::isLatitude($line));
     }
 
@@ -35,7 +35,7 @@ class CoordinateReaderTest extends TestCase
      * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
      */
     public function testIsLongitude(bool $expected, string $line) {
-        $line = new HeaderLineaReader($line);
+        $line = new HeaderLineReader($line);
         $this->assertEquals($expected, CoordinateReader::isLongitude($line));
     }
 

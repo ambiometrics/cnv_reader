@@ -9,7 +9,7 @@ namespace edwrodrig\cnv_reader;
  * Parses a line in the header
  * @package edwrodrig\cnv_reader
  */
-class HeaderLineaReader
+class HeaderLineReader
 {
     private $line;
 

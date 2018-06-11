@@ -9,6 +9,13 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1814766336">
+      <usages-collector id="statistics.php.composer.actions">
+        <counts>
+          <entry key="updateAll_from_ProjectViewPopup" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
