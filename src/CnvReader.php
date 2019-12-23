@@ -53,7 +53,7 @@ class CnvReader implements IteratorAggregate
      * @throws exception\OpenFileException
      */
     public function __construct(string $filename) {
-        $this->stream = fopen($filename, 'r');
+        $this->stream = @fopen($filename, 'r');
         if ( $this->stream === FALSE ) {
             throw new exception\OpenFileException($filename);
         }

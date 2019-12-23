@@ -85,4 +85,9 @@ class HeaderLineReaderTest extends TestCase
         $header = new HeaderLineReader("# hola como te va");
         $this->assertEquals(false, $header->isDataLine());
     }
+
+    public function testToShortHeaderLine() {
+        $this->expectException(InvalidHeaderLineFormatException::class);
+         new HeaderLineReader("#");
+    }
 }

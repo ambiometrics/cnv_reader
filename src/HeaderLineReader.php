@@ -69,7 +69,8 @@ class HeaderLineReader
      * @throws exception\InvalidHeaderLineFormatException
      */
     private function validate() {
-        if ( strlen($this->line) <= 2 ) throw new exception\InvalidHeaderLineFormatException($this->line);
+        if ( strlen($this->line) <= 2 )
+            throw new exception\InvalidHeaderLineFormatException($this->line);
     }
 
     public function isDataLine() : bool {

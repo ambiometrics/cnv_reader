@@ -6,6 +6,7 @@ use edwrodrig\cnv_reader\CnvReader;
 use edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException;
 use edwrodrig\cnv_reader\exception\InvalidStreamException;
 use edwrodrig\cnv_reader\exception\OpenFileException;
+use edwrodrig\cnv_reader\HeaderReader;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +24,12 @@ class CnvReaderTest  extends TestCase
 
     public function setUp() : void {
         $this->root = vfsStream::setup();
+    }
+
+    function testWrongFileOpen()
+    {
+        $this->expectException(OpenFileException::class);
+        new CnvReader("unexistant_filename");
     }
 
     /**
@@ -87,6 +94,11 @@ EOF
 
         $p = new CnvReader($filename);
         $data = iterator_to_array($p, false);
+
+        $headers = $p->getHeaders();
+        $this->assertInstanceOf(HeaderReader::class, $headers);
+
+
         $this->assertEquals(7753, $data[0][0]);
         $this->assertEquals(33.8869, $data[6][10]);
         $this->assertEquals(15, count($data[0]));
