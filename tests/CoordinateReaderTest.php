@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace test\edwrodrig\cnv_reader;
 
 use edwrodrig\cnv_reader\CoordinateReader;
+use edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException;
 use edwrodrig\cnv_reader\HeaderLineReader;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +21,7 @@ class CoordinateReaderTest extends TestCase
      *            [false, "* NMEA Longitude = 070 14.97 W"]
      * @param bool $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testIsLatitude(bool $expected, string $line) {
         $line = new HeaderLineReader($line);
@@ -32,7 +33,7 @@ class CoordinateReaderTest extends TestCase
      *           [false, "* NMEA Latitude = 20 06.01 S" ]
      * @param bool $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testIsLongitude(bool $expected, string $line) {
         $line = new HeaderLineReader($line);

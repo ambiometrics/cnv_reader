@@ -18,7 +18,7 @@ class CoordinateReader
     /**
      * @var Coordinate
      */
-    private $coordinate;
+    private Coordinate $coordinate;
 
     public function __construct(string $latitude, string $longitude) {
         $this->coordinate = CoordinateFactory::fromString(sprintf('%s, %s', $latitude, $longitude));

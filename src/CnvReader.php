@@ -42,7 +42,7 @@ class CnvReader implements IteratorAggregate
     /**
      * @var HeaderReader
      */
-    public $header;
+    public HeaderReader $header;
 
 
     /**

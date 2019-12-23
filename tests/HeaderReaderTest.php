@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\cnv_reader;
 
+use edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException;
+use edwrodrig\cnv_reader\exception\InvalidStreamException;
 use edwrodrig\cnv_reader\HeaderReader;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -26,8 +28,8 @@ class HeaderReaderTest extends TestCase
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testEmptyHeader() {
 
@@ -47,8 +49,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderDataOnly() {
 
@@ -70,8 +72,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderIndexedData() {
 
@@ -93,8 +95,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderMetricData() {
         $filename =  $this->root->url() . '/test';
@@ -116,8 +118,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderCoordinate() {
         $filename =  $this->root->url() . '/test';
@@ -140,8 +142,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderCoordinateNullLat() {
         $filename =  $this->root->url() . '/test';
@@ -162,8 +164,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderCoordinateNullLng() {
         $filename =  $this->root->url() . '/test';
@@ -184,8 +186,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderDateTime() {
         $filename =  $this->root->url() . '/test';
@@ -206,8 +208,8 @@ EOF
     }
 
     /**
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
      */
     public function testHeaderDateTimeNull() {
         $filename =  $this->root->url() . '/test';

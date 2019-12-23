@@ -11,7 +11,7 @@ namespace edwrodrig\cnv_reader;
  */
 class HeaderLineReader
 {
-    private $line;
+    private string $line;
 
     /**
      * @var string
@@ -20,15 +20,9 @@ class HeaderLineReader
 
     private string $expectedInitChar;
 
-    /**
-     * @var null|string
-     */
-    private $key = null;
+    private string $key;
 
-    /**
-     * @var null|string
-     */
-    private $value = null;
+    private string $value;
 
     /**
      * HeaderLineParser constructor.
@@ -38,7 +32,7 @@ class HeaderLineReader
      */
     public function __construct(string $line, ?string $expectedInitChar = null) {
         $this->line = $line;
-        $this->validate($this->line);
+        $this->validate();
         $this->init_char = $this->retrieveInitChar();
         if ( !is_null($expectedInitChar) )
             $this->expectedInitChar = $expectedInitChar;
@@ -131,8 +125,8 @@ class HeaderLineReader
             $this->value = trim($tokens[1]);
         }
 
-        if ( empty($this->key)) $this->key = null;
-        if ( empty($this->value) ) $this->value = null;
+        if ( empty($this->key)) unset($this->key);
+        if ( empty($this->value) ) unset($this->value);
     }
 
     /**
@@ -142,7 +136,7 @@ class HeaderLineReader
      * @return null|string
      */
     public function getKey() : ?string {
-        return $this->key;
+        return $this->key ?? null;
     }
 
     /**
@@ -150,7 +144,7 @@ class HeaderLineReader
      * @return null|string
      */
     public function getValue() : ?string {
-        return $this->value;
+        return $this->value ?? null;
     }
 
     /**
@@ -164,7 +158,7 @@ class HeaderLineReader
      * @return bool
      */
     public function isIndexed() : bool {
-        return !is_null($this->getKey());
+        return isset($this->key);
     }
 
     /**
@@ -172,6 +166,6 @@ class HeaderLineReader
      * @return bool
      */
     public function isEmpty() : bool {
-        return is_null($this->getKey()) && is_null($this->getValue());
+        return !isset($this->key) && !isset($this->value);
     }
 }

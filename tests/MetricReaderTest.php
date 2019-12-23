@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\cnv_reader;
 
+use edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException;
 use edwrodrig\cnv_reader\HeaderLineReader;
 use edwrodrig\cnv_reader\MetricReader;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +24,7 @@ class MetricReaderTest extends TestCase
      *              [false, "# hola"]
      * @param bool $expected
      * @param string $header_line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testIsMetric(bool $expected, string $header_line) {
         $header_line_parser = new HeaderLineReader($header_line);
@@ -38,7 +39,7 @@ class MetricReaderTest extends TestCase
      * @param int $expectedIndex
      * @param string $expectedName
      * @param string $header_line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testGetIndex(int $expectedIndex, string $expectedName, string $header_line) {
         $header_line_parser = new HeaderLineReader($header_line);

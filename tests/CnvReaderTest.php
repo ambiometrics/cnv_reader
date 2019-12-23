@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\cnv_reader;
 use edwrodrig\cnv_reader\CnvReader;
+use edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException;
+use edwrodrig\cnv_reader\exception\InvalidStreamException;
+use edwrodrig\cnv_reader\exception\OpenFileException;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +19,7 @@ class CnvReaderTest  extends TestCase
     /**
      * @var vfsStreamDirectory
      */
-    private $root;
+    private vfsStreamDirectory $root;
 
     public function setUp() : void {
         $this->root = vfsStream::setup();
@@ -27,9 +30,9 @@ class CnvReaderTest  extends TestCase
      * [["7753", "2.000", "13.9517", "13.9508", "4.245499", "4.029069", "5.1882", "5.1698", "1.7389", "1.3470e+02", "35.4565", "33.5105", "26.5455", "25.0464", "0.0000e+00"],"       7753      2.000    13.9517    13.9508   4.245499   4.029069     5.1882     5.1698     1.7389 1.3470e+02    35.4565    33.5105    26.5455    25.0464 0.0000e+00"]
      * @param array $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
-     * @throws \edwrodrig\cnv_reader\exception\InvalidStreamException
-     * @throws \edwrodrig\cnv_reader\exception\OpenFileException
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
+     * @throws OpenFileException
      */
     function testParseDataLine(array $expected, string $line)
     {
@@ -54,6 +57,11 @@ EOF
     }
 
 
+    /**
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
+     * @throws OpenFileException
+     */
     public function testHappy() {
         $filename =  $this->root->url() . '/test';
 
@@ -84,6 +92,11 @@ EOF
         $this->assertEquals(15, count($data[0]));
     }
 
+    /**
+     * @throws InvalidHeaderLineFormatException
+     * @throws InvalidStreamException
+     * @throws OpenFileException
+     */
     public function testWinstonFiles() {
         $filename =  $this->root->url() . '/test';
 

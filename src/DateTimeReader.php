@@ -11,14 +11,20 @@ namespace edwrodrig\cnv_reader;
 
 
 use DateTime;
+use Exception;
 
 class DateTimeReader
 {
     /**
      * @var DateTime
      */
-    private $datetime;
+    private DateTime $datetime;
 
+    /**
+     * DateTimeReader constructor.
+     * @param string $datetime
+     * @throws Exception
+     */
     public function __construct(string $datetime) {
         $this->datetime = new DateTime($datetime);
     }
