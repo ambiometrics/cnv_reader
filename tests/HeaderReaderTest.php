@@ -12,6 +12,7 @@ namespace test\edwrodrig\cnv_reader;
 use edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException;
 use edwrodrig\cnv_reader\exception\InvalidStreamException;
 use edwrodrig\cnv_reader\HeaderReader;
+use edwrodrig\cnv_reader\MetricInfoReader;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -46,6 +47,12 @@ EOF
         $this->assertEquals([], $parser->getData());
 
         fclose($f);
+    }
+
+    public function testInvalidStream() {
+        $this->expectException(InvalidStreamException::class);
+
+        new HeaderReader(null);
     }
 
     /**
@@ -113,6 +120,28 @@ EOF
         $parser = new HeaderReader($f);
         $this->assertEquals(['surname' => 'Rodríguez', 'surname2' => 'León'], $parser->getIndexedData());
         $this->assertEquals('Edwin', $parser->getMetricByColumn(1)->getName());
+        $this->assertNull($parser->getMetricByColumn(2));
+
+        fclose($f);
+    }
+
+    public function testHeaderMetrics() {
+        $filename =  $this->root->url() . '/test';
+
+        file_put_contents($filename, <<<EOF
+* name 1 : Edwin
+* surname = Rodríguez
+* surname2 = León
+*END*
+EOF
+        );
+        $f = fopen($filename, 'r');
+
+        $parser = new HeaderReader($f);
+        $metrics = $parser->getMetrics();
+        $this->assertCount(1, $metrics);
+        $this->assertInstanceOf(MetricInfoReader::class, $metrics[1]);
+
 
         fclose($f);
     }

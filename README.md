@@ -14,7 +14,7 @@ A php library to read CNV files generated from CTD devices.
 
  - Read files of CTD devices exported from [SeaBird software]((http://www.seabird.com/software))
  - Compliant to [this specification](http://www.odb.ntu.edu.tw/Thermosalinograph/instrument/SBEDataProcessing.pdf)
-My infrastructure is targeted to __Ubuntu 16.04__ machines with last __php7.2__ installed from [ppa:ondrej/php](https://launchpad.net/~ondrej/+archive/ubuntu/php).
+My infrastructure is targeted to __Ubuntu 16.04__ machines with last __php7.4__ installed from [ppa:ondrej/php](https://launchpad.net/~ondrej/+archive/ubuntu/php).
 
 ## Documentation
 The source code is documented using [phpDocumentor](http://docs.phpdoc.org/references/phpdoc/basic-syntax.html) style,
