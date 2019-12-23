@@ -16,7 +16,9 @@ class HeaderLineReader
     /**
      * @var string
      */
-    private $init_char;
+    private string $init_char;
+
+    private string $expectedInitChar;
 
     /**
      * @var null|string
@@ -31,13 +33,21 @@ class HeaderLineReader
     /**
      * HeaderLineParser constructor.
      * @param string $line
+     * @param string|null $expectedInitChar
      * @throws exception\InvalidHeaderLineFormatException
      */
-    public function __construct(string $line) {
+    public function __construct(string $line, ?string $expectedInitChar = null) {
         $this->line = $line;
         $this->validate($this->line);
         $this->init_char = $this->retrieveInitChar();
+        if ( !is_null($expectedInitChar) )
+            $this->expectedInitChar = $expectedInitChar;
+
         $this->retrieveKeyAndValue();
+    }
+
+    public function getExpectedInitChar() : string {
+        return $this->expectedInitChar ?? $this->init_char;
     }
 
     /**
@@ -66,6 +76,14 @@ class HeaderLineReader
      */
     private function validate() {
         if ( strlen($this->line) <= 2 ) throw new exception\InvalidHeaderLineFormatException($this->line);
+    }
+
+    public function isDataLine() : bool {
+        if ( isset($this->expectedInitChar) ) {
+            if ( $this->expectedInitChar != $this->init_char )
+                return true;
+        }
+        return false;
     }
 
     /**

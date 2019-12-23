@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\cnv_reader;
 
+use edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException;
 use edwrodrig\cnv_reader\HeaderLineReader;
 use edwrodrig\cnv_reader\MetricReader;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +15,7 @@ class HeaderLineReaderTest extends TestCase
      *          ["#", "# hola"]
      * @param string $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testInitChar(string $expected, string $line) {
         $header = new HeaderLineReader($line);
@@ -27,7 +28,7 @@ class HeaderLineReaderTest extends TestCase
      *           [false, "%end%"]
      * @param bool $expected
      * @param string $line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testIsEnd(bool $expected, string $line) {
         $header = new HeaderLineReader($line);
@@ -46,7 +47,7 @@ class HeaderLineReaderTest extends TestCase
      * @param null|string $expectedKey
      * @param null|string $expectedValue
      * @param string $line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testKeyValue(?string $expectedKey, ?string $expectedValue, string $line) {
         $header = new HeaderLineReader($line);
@@ -62,11 +63,26 @@ class HeaderLineReaderTest extends TestCase
      *              ["# name 26 = D2-D1: Density Difference, 2 - 1 [sigma-theta, kg/m^3]"]
      *              ["# name 23 = sbeox1ML/L: Oxygen, SBE 43, 2 [ml/l], WS = 2"]
      * @param string $line
-     * @throws \edwrodrig\cnv_reader\exception\InvalidHeaderLineFormatException
+     * @throws InvalidHeaderLineFormatException
      */
     public function testMetric(string $line) {
         $header = new HeaderLineReader($line);
         $this->assertTrue(MetricReader::isMetric($header));
 
+    }
+
+    public function testIsNotDataLine() {
+        $header = new HeaderLineReader("hola como te va", "#");
+        $this->assertEquals(true, $header->isDataLine());
+    }
+
+    public function testIsDataLineExpectedInitChar() {
+        $header = new HeaderLineReader("# hola como te va", "#");
+        $this->assertEquals(false, $header->isDataLine());
+    }
+
+    public function testIsDataLineNoExpectedInitChar() {
+        $header = new HeaderLineReader("# hola como te va");
+        $this->assertEquals(false, $header->isDataLine());
     }
 }

@@ -120,12 +120,20 @@ class HeaderReader
          * @var null|string $longitude
          */
         $longitude = null;
+        $expectedInitChar = null;
         do {
+            $currentPosition = ftell($this->stream);
             $line = fgets($this->stream);
-            $line_parser = new HeaderLineReader($line);
+            $line_parser = new HeaderLineReader($line, $expectedInitChar);
+            $expectedInitChar = $line_parser->getExpectedInitChar();
 
             if ( $line_parser->isEmpty() ) {
                 continue;
+            }
+
+            if ( $line_parser->isDataLine() ) {
+                fseek($this->stream, $currentPosition);
+                break;
             }
 
             if ( $line_parser->isEnd() ) {

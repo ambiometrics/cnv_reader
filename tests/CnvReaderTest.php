@@ -18,7 +18,7 @@ class CnvReaderTest  extends TestCase
      */
     private $root;
 
-    public function setUp() {
+    public function setUp() : void {
         $this->root = vfsStream::setup();
     }
 
@@ -82,6 +82,44 @@ EOF
         $this->assertEquals(7753, $data[0][0]);
         $this->assertEquals(33.8869, $data[6][10]);
         $this->assertEquals(15, count($data[0]));
+    }
+
+    public function testWinstonFiles() {
+        $filename =  $this->root->url() . '/test';
+
+        file_put_contents($filename, <<<EOF
+% CTD
+% Ship : Sonne
+% Cruise : Sonne261
+% Chief Scientist :  
+% Region : Atacama Trench
+% Station N� :    1
+% Cast N� :    2
+% Date : 20180304
+% Time : 21:37 
+% Latitude : -23.8167
+% Longitude : -70.8354
+% DepthCTD :   2525 m
+% Bottom :   2545  m
+% Instrument : Sea-Bird SBE 9
+% Notes: 1) UTC TIME 
+%               2) Station or Site 
+%  PRS,TMP00_THETA,TMP01_THETA,SALYN00,SALYN01,OXYG00, SIG_THETA00, SIG_THETA01
+% DBAR ,  �C DEG,  �C DEG,  PSU,  PSU, ML/L, KG/M^3, KG/M^3 
+37.0000, 14.5854, 14.5856, 34.5167, 34.5197, 3.9527, 25.6893, 25.6916
+38.0000, 14.5048, 14.5050, 34.5156, 34.5187, 3.8679, 25.7058, 25.7081
+39.0000, 14.4196, 14.4196, 34.5126, 34.5154, 3.7567, 25.7216, 25.7238
+40.0000, 14.3116, 14.3117, 34.5027, 34.5054, 3.6851, 25.7370, 25.7390
+41.0000, 14.2191, 14.2199, 34.5045, 34.5073, 3.5538, 25.7580, 25.7600
+42.0000, 14.1593, 14.1600, 34.5268, 34.5295, 3.1314, 25.7879, 25.7898
+43.0000, 14.0706, 14.0711, 34.5485, 34.5511, 2.5665, 25.8234, 25.8252
+EOF
+        );
+
+
+        $p = new CnvReader($filename);
+        $data = iterator_to_array($p, false);
+        $this->assertEquals("37.0000,", $data[0][0]);
     }
 
 
