@@ -15,24 +15,24 @@ use Location\Coordinate;
 
 class HeaderReader
 {
-    private $indexed_data = [];
+    private array $indexed_data = [];
 
-    private $data = [];
+    private array $data = [];
 
     /**
      * @var MetricInfoReader[]
      */
-    private $metrics = [];
+    private array $metrics = [];
 
     /**
-     * @var null|Coordinate
+     * @var Coordinate
      */
-    private $coordinate = null;
+    private Coordinate $coordinate;
 
     /**
-     * @var null|DateTime
+     * @var DateTime
      */
-    private $datetime = null;
+    private DateTime $datetime;
 
     /**
      * @var resource
@@ -94,7 +94,7 @@ class HeaderReader
      * @return null|Coordinate
      */
     public function getCoordinate() : ?Coordinate {
-        return $this->coordinate;
+        return $this->coordinate ?? null;
     }
 
     /**
@@ -104,11 +104,12 @@ class HeaderReader
      * @return DateTime|null
      */
     public function getDateTime() : ?DateTime {
-        return $this->datetime;
+        return $this->datetime ?? null;
     }
 
     /**
      * @throws exception\InvalidHeaderLineFormatException
+     * @throws \Exception
      */
     private function parse() {
 

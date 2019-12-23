@@ -19,7 +19,7 @@ class MetricReader
     /**
      * @var MetricInfoReader
      */
-    private $info_parser;
+    private MetricInfoReader $info_parser;
 
     /**
      * Header key validation regular expression

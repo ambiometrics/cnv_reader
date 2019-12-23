@@ -21,7 +21,7 @@ class HeaderReaderTest extends TestCase
     /**
      * @var vfsStreamDirectory
      */
-    private $root;
+    private vfsStreamDirectory $root;
 
     public function setUp() : void {
         $this->root = vfsStream::setup();

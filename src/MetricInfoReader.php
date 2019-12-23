@@ -9,22 +9,22 @@ class MetricInfoReader
     /**
      * @var string
      */
-    private $name = null;
+    private string $name;
 
     /**
-     * @var null|string
+     * @var string
      */
-    private $unit = null;
+    private string $unit;
 
     /**
-     * @var null|string
+     * @var string
      */
-    private $type = null;
+    private string $type;
 
     /**
      * @var string[]
      */
-    private $other = [];
+    private array $other = [];
 
     /**
      * Unit are enclosed in square brackets
@@ -45,7 +45,9 @@ class MetricInfoReader
         if ( count($tokens) > 1 ) {
             $info = trim($tokens[1]);
 
-            $this->unit = $this->retrieveUnit($info);
+            $unit = $this->retrieveUnit($info);
+            if ( is_string($unit) )
+                $this->unit = $unit;
 
             $info = preg_replace(self::UNIT_REGEX, '', $info);
             $info_sections = explode(',', $info);
@@ -81,7 +83,7 @@ class MetricInfoReader
      * @return null|string
      */
     public function getUnit() : ?string {
-        return $this->unit;
+        return $this->unit ?? null;
     }
 
     /**
@@ -89,7 +91,7 @@ class MetricInfoReader
      * @return null|string
      */
     public function getType() : ?string {
-        return $this->type;
+        return $this->type ?? null;
     }
 
     /**
